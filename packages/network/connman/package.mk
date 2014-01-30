@@ -24,7 +24,7 @@ PKG_LICENSE="GPL"
 PKG_SITE="http://www.connman.net"
 PKG_URL="http://www.kernel.org/pub/linux/network/connman/$PKG_NAME-$PKG_VERSION.tar.xz"
 # PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS="glib readline dbus iptables wpa_supplicant ntp Python pygobject dbus-python"
+PKG_DEPENDS="glib readline dbus iptables ntp Python pygobject dbus-python"
 PKG_BUILD_DEPENDS_TARGET="toolchain glib readline dbus iptables"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
@@ -50,6 +50,13 @@ else
   CONNMAN_OPENVPN="--disable-openvpn"
 fi
 
+if [ "$WIFI_SUPPORT" = yes ]; then
+  PKG_DEPENDS="$PKG_DEPENDS wpa_supplicant"
+  CONNMAN_WIFI="--enable-wifi"
+else
+  CONNMAN_WIFI="--disable-wifi"
+fi
+
 PKG_CONFIGURE_OPTS_TARGET="WPASUPPLICANT=/usr/bin/wpa_supplicant \
                            --disable-gtk-doc \
                            --disable-debug \
@@ -68,7 +75,7 @@ PKG_CONFIGURE_OPTS_TARGET="WPASUPPLICANT=/usr/bin/wpa_supplicant \
                            --disable-selinux \
                            --enable-loopback \
                            --enable-ethernet \
-                           --enable-wifi \
+                           $CONNMAN_WIFI \
                            --disable-bluetooth \
                            --disable-ofono \
                            --disable-dundee \

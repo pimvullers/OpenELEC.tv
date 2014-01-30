@@ -46,8 +46,10 @@ PKG_AUTORECONF="no"
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET pycrypto"
 
 # various PVR clients
+if [ "$PVR_SUPPORT" = yes ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-pvr-addons"
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-addon-xvdr"
+fi
 
 if [ "$DISPLAYSERVER" = "xorg-server" ]; then
 # for libX11 support

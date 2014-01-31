@@ -16,19 +16,18 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="vdpauinfo"
-PKG_VERSION="0.0.6"
+PKG_NAME="alsa"
+PKG_VERSION=""
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-PKG_SITE="http://freedesktop.org/wiki/Software/VDPAU"
-PKG_URL="http://people.freedesktop.org/~aplattner/vdpau/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET=""
-PKG_BUILD_DEPENDS_TARGET="toolchain"
+PKG_SITE="http://www.alsa-project.org/"
+PKG_URL=""
+PKG_DEPENDS_TARGET="toolchain alsa-lib alsa-utils"
 PKG_PRIORITY="optional"
-PKG_SECTION="debug"
-PKG_SHORTDESC="vdpauinfo: a tool to show vdpau infos "
-PKG_LONGDESC="VDPAU is the Video Decode and Presentation API for UNIX. It provides an interface to video decode acceleration and presentation hardware present in modern GPUs."
+PKG_SECTION="virtual"
+PKG_SHORTDESC="alsa: Matapackage to install all alsa components"
+PKG_LONGDESC="ALSA (Advanced Linux Sound Architecture) is the next generation Linux Sound API. It provides much finer (->better) access to the sound hardware, has a unbeatable mixer API and supports stuff like multi channel hardware, digital outs and ins, uninterleaved sound data access, and an oss emulation layer (for the old applications). It is the prefered API for professional sound apps under Linux."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"

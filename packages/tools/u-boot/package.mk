@@ -29,8 +29,7 @@ fi
 PKG_REV="1"
 PKG_ARCH="arm"
 PKG_LICENSE="GPL"
-PKG_DEPENDS_TARGET=""
-PKG_BUILD_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="tools"
 PKG_SHORTDESC="u-boot: Universal Bootloader project"
@@ -59,6 +58,15 @@ pre_configure_target() {
 make_target() {
   make CROSS_COMPILE="$TARGET_PREFIX" ARCH="$TARGET_ARCH" $UBOOT_CONFIG
   make CROSS_COMPILE="$TARGET_PREFIX" ARCH="$TARGET_ARCH" HOSTCC="$HOST_CC" HOSTSTRIP="true"
+}
+
+makeinstall_target() {
+  mkdir -p $ROOT/$TOOLCHAIN/bin
+    if [ -f build/tools/mkimage ]; then
+      cp build/tools/mkimage $ROOT/$TOOLCHAIN/bin
+    else
+      cp tools/mkimage $ROOT/$TOOLCHAIN/bin
+    fi
 
   BOOT_CFG="$PROJECT_DIR/$PROJECT/bootloader/boot.cfg"
   if [ -r "$BOOT_CFG" ]; then
@@ -71,15 +79,6 @@ make_target() {
             -d boot.cfg \
             $UBOOT_CONFIGFILE
   fi
-}
-
-makeinstall_target() {
-  mkdir -p $ROOT/$TOOLCHAIN/bin
-    if [ -f build/tools/mkimage ]; then
-      cp build/tools/mkimage $ROOT/$TOOLCHAIN/bin
-    else
-      cp tools/mkimage $ROOT/$TOOLCHAIN/bin
-    fi
 
   mkdir -p $INSTALL/usr/share/u-boot
     cp ./u-boot.bin $INSTALL/usr/share/u-boot

@@ -400,7 +400,7 @@ pre_configure_target() {
   strip_lto
 
 # xbmc fails to build with more then 4 cores
-  MAKEFLAGS=-j4
+  MAKEFLAGS=-j2
 
   export CFLAGS="$CFLAGS $XBMC_CFLAGS"
   export CXXFLAGS="$CXXFLAGS $XBMC_CXXFLAGS"

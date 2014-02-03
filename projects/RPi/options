@@ -173,6 +173,9 @@
 # build with network support (yes / no)
   NETWORK="yes"
 
+# build with wireless network support (yes / no)
+  WIFI_SUPPORT="yes"
+
 # build and install bluetooth support (yes / no)
   BLUETOOTH_SUPPORT="yes"
 
@@ -282,6 +285,9 @@
 
 # build and install CEC adapter support (yes / no)
   CEC_SUPPORT="yes"
+
+# build and install PVR support (yes / no)
+  PVR_SUPPORT="yes"
 
 # build and install iSCSI support - iscsistart (yes / no)
   ISCSI_SUPPORT="yes"

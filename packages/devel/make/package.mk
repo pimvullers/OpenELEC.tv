@@ -35,7 +35,5 @@ PKG_AUTORECONF="no"
 export CC=$LOCAL_CC
 
 post_makeinstall_host() {
-  if [ ! -f "${ROOT}/${TOOLCHAIN}/bin/gmake" ]; then
-    ln -s make "${ROOT}/${TOOLCHAIN}/bin/gmake"
-  fi
+  ln -sf make $ROOT/$TOOLCHAIN/bin/gmake
 }

@@ -159,7 +159,7 @@
   ENCODER_LAME="no"
 
 # build and install with VORBIS cdrip encoder support
-  ENCODER_VORBIS="no"
+  ENCODER_VORBIS="yes"
 
 # build and install with BluRay support (yes / no)
   BLURAY_SUPPORT="no"

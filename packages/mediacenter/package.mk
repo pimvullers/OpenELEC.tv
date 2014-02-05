@@ -43,8 +43,10 @@ if [ "$MEDIACENTER" = "xbmc" ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET pycrypto"
 
 # various PVR clients
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-pvr-addons"
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-addon-xvdr"
+  if [ "$PVR_SUPPORT" = yes ]; then
+    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-pvr-addons"
+    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-addon-xvdr"
+  fi
 
 # other packages
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET service.openelec.settings"

@@ -38,12 +38,6 @@ PKG_AUTORECONF="no"
 # needed for hosttools (Texturepacker)
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET lzo:host SDL:host SDL_image:host"
 
-# various PVR clients
-if [ "$PVR_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-pvr-addons"
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-addon-xvdr"
-fi
-
 if [ "$DISPLAYSERVER" = "x11" ]; then
 # for libX11 support
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libX11 libXext"

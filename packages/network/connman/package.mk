@@ -48,7 +48,7 @@ else
 fi
 
 if [ "$WIFI_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS wpa_supplicant"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET wpa_supplicant"
   CONNMAN_WIFI="--enable-wifi"
 else
   CONNMAN_WIFI="--disable-wifi"

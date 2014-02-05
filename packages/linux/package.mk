@@ -32,7 +32,7 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kernel.org"
 PKG_DEPENDS_HOST="ccache:host"
-PKG_DEPENDS_TARGET="toolchain cpio:host kmod:host pciutils xz:host wireless-regdb"
+PKG_DEPENDS_TARGET="toolchain cpio:host kmod:host pciutils xz:host"
 PKG_DEPENDS_INIT="toolchain"
 PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_PRIORITY="optional"
@@ -45,6 +45,10 @@ PKG_AUTORECONF="no"
 
 if [ "$PERF_SUPPORT" = "yes" -a "$DEVTOOLS" = "yes" ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET elfutils Python"
+fi
+
+if [ "$WIFI_SUPPORT" = yes ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET wireless-regdb"
 fi
 
 PKG_MAKE_OPTS_HOST="ARCH=$TARGET_ARCH headers_check"
@@ -113,8 +117,10 @@ makeinstall_host() {
 }
 
 pre_make_target() {
-  # regdb
-  cp $(get_build_dir wireless-regdb)/db.txt $ROOT/$PKG_BUILD/net/wireless/db.txt
+  if [ "$WIFI_SUPPORT" = yes ]; then
+    # regdb
+    cp $(get_build_dir wireless-regdb)/db.txt $ROOT/$PKG_BUILD/net/wireless/db.txt
+  fi
 
   if [ "$BOOTLOADER" = "u-boot" ]; then
     ( cd $ROOT

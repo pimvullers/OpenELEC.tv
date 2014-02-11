@@ -16,25 +16,20 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="gettext"
-PKG_VERSION="0.18.3.1"
+PKG_NAME="libxshmfence"
+PKG_VERSION="1.1"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
-PKG_SITE="http://www.gnu.org/s/gettext/"
-PKG_URL="http://ftp.gnu.org/pub/gnu/gettext/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_HOST="ccache:host"
+PKG_LICENSE="OSS"
+PKG_SITE="http://www.X.org"
+PKG_URL="http://xorg.freedesktop.org/archive/individual/lib/$PKG_NAME-$PKG_VERSION.tar.bz2"
+PKG_DEPENDS_TARGET="toolchain util-macros xproto"
 PKG_PRIORITY="optional"
-PKG_SECTION="toolchain/devel"
-PKG_SHORTDESC="gettext: A program internationalization library and tools"
-PKG_LONGDESC="This is the GNU gettext package. It is interesting for authors or maintainers of other packages or programs which they want to see internationalized. As one step the handling of messages in different languages should be implemented. For this task GNU gettext provides the needed tools and library functions."
+PKG_SECTION="x11/lib"
+PKG_SHORTDESC="libxshmfence: Shared memory 'SyncFence' synchronization primitive."
+PKG_LONGDESC="libxshmfence is the Shared memory 'SyncFence' synchronization primitive."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="no"
+PKG_AUTORECONF="yes"
 
-PKG_CONFIGURE_OPTS_HOST="--enable-static --disable-shared \
-                         --disable-rpath \
-                         --with-gnu-ld \
-                         --disable-java \
-                         --disable-native-java \
-                         --without-emacs"
+PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared"

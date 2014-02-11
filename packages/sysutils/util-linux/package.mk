@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="util-linux"
-PKG_VERSION="2.24"
+PKG_VERSION="2.24.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -95,7 +95,7 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-gtk-doc \
                            --without-utempter \
                            --without-systemdsystemunitdir"
 
-PKG_CONFIGURE_OPTS_HOST="$PKG_CONFIGURE_OPTS_TARGET --enable-static --disable-shared"
+PKG_CONFIGURE_OPTS_HOST="$PKG_CONFIGURE_OPTS_TARGET"
 
 post_makeinstall_target() {
   rm -rf $INSTALL/usr/bin

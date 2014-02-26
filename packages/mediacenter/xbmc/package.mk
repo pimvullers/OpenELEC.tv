@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="xbmc"
-PKG_VERSION="13.alpha-73371a9"
+PKG_VERSION="13.alpha-5cd779b"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -308,6 +308,7 @@ export PYTHON_SITE_PKG="$SYSROOT_PREFIX/usr/lib/python$PYTHON_VERSION/site-packa
 export ac_python_version="$PYTHON_VERSION"
 
 PKG_CONFIGURE_OPTS_TARGET="gl_cv_func_gettimeofday_clobber=no \
+                           ac_cv_lib_bluetooth_hci_devid=no \
                            --with-arch=$TARGET_ARCH \
                            --with-cpu=$TARGET_CPU \
                            --disable-debug \
@@ -494,7 +495,7 @@ post_makeinstall_target() {
 
 post_install() {
 # link default.target to xbmc.target
-  ln -sf xbmc.target $INSTALL/lib/systemd/system/default.target
+  ln -sf xbmc.target $INSTALL/usr/lib/systemd/system/default.target
 
   enable_service xbmc-autostart.service
   enable_service xbmc-cleanlogs.service
@@ -506,6 +507,5 @@ post_install() {
   enable_service xbmc-reboot.service
   enable_service xbmc-waitonnetwork.service
   enable_service xbmc.service
-  enable_service xbmc-lcd-suspend.service
   enable_service xbmc-lirc-suspend.service
 }

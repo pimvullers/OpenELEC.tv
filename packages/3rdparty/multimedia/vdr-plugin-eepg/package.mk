@@ -16,34 +16,36 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="eventlircd"
-PKG_VERSION="42"
+PKG_NAME="vdr-plugin-eepg"
+PKG_VERSION="69b47ba"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-PKG_SITE="http://code.google.com/p/eventlircd"
-PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain systemd lirc"
+PKG_SITE="http://projects.vdr-developer.org/projects/plg-eepg"
+PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET="toolchain vdr"
 PKG_PRIORITY="optional"
-PKG_SECTION="system/remote"
-PKG_SHORTDESC="eventlircd:The eventlircd daemon provides various functions for LIRC devices"
-PKG_LONGDESC="The eventlircd daemon provides four functions for LIRC devices"
+PKG_SECTION="multimedia"
+PKG_SHORTDESC="vdr-plugin-eepg"
+PKG_LONGDESC="This plugin parses the Extended (2 to 10 day) EPG data which is send by providers on their portal channels. This EEPG data is transmitted in a non-standard format on a non-standard PID."
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
 
-PKG_CONFIGURE_OPTS_TARGET="--with-udev-dir=/usr/lib/udev"
+PKG_AUTORECONF="no"
 
-post_makeinstall_target() {
-# install our own evmap files and udev rules
-  rm -rf $INSTALL/etc/eventlircd.d
-  rm -rf $INSTALL/usr/lib/udev/rules.d
-  rm -rf $INSTALL/usr/lib/udev/lircd_helper
-
-  mkdir -p $INSTALL/etc/eventlircd.d
-    cp $PKG_DIR/evmap/*.evmap $INSTALL/etc/eventlircd.d
+pre_configure_target() {
+  export CFLAGS="$CFLAGS -fPIC"
+  export CXXFLAGS="$CXXFLAGS -fPIC"
+  export LDFLAGS="$LDFLAGS -fPIC"
 }
 
-post_install() {
-  enable_service eventlircd.service
+make_target() {
+  VDR_DIR=$(get_build_dir vdr)
+  make VDRDIR=$VDR_DIR \
+    LIBDIR="." \
+    LOCALEDIR="./locale"
+}
+
+makeinstall_target() {
+  : # installation not needed, done by create-addon script
 }

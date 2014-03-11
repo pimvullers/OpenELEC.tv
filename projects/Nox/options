@@ -11,9 +11,6 @@
   GREETING3="##############################################"
   GREETING4=""
 
-# Hostname for target system (openelec)
-  HOSTNAME="nox"
-
 # Root password to integrate in the target system
   ROOT_PASSWORD="openelec"
 
@@ -70,7 +67,7 @@
       ;;
   esac
 
-# Build optimizations (size/normal/speed)
+# Build optimizations (size/normal)
   OPTIMIZATIONS="size"
 
 # Project CFLAGS
@@ -93,6 +90,15 @@
 
 # Target Configfile for u-boot
   UBOOT_CONFIGFILE=""
+
+# Kernel target for u-boot (default 'uImage' if BOOTLOADER=u-boot) (uImage / zImage)
+  KERNEL_UBOOT_TARGET=""
+
+# Kernel extra targets to build
+  KERNEL_UBOOT_EXTRA_TARGET=""
+
+# Additional kernel make parameters (for example to specify the u-boot loadaddress)
+  KERNEL_MAKE_EXTRACMD=""
 
 # GCC to use. values can be:
 # default:  default mainline gcc
@@ -120,7 +126,7 @@
   SKIN_DEFAULT="Confluence"
 
 # install extra subtitle Fonts for XBMC (yes / no)
-  XBMC_EXTRA_FONTS="yes"
+  XBMC_EXTRA_FONTS="no"
 
 # build and install 'RSXS' Screensaver (yes / no)
   XBMC_SCR_RSXS="no"
@@ -158,9 +164,6 @@
 # build and install with LAME cdrip encoder support
   ENCODER_LAME="no"
 
-# build and install with VORBIS cdrip encoder support
-  ENCODER_VORBIS="yes"
-
 # build and install with BluRay support (yes / no)
   BLURAY_SUPPORT="no"
 
@@ -169,9 +172,6 @@
 # Space separated list is supported,
 # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
   ADDITIONAL_DRIVERS=""
-
-# build with network support (yes / no)
-  NETWORK="yes"
 
 # build with wireless network support (yes / no)
   WIFI_SUPPORT="no"
@@ -183,16 +183,16 @@
   WEBSERVER="yes"
 
 # build and install Avahi (Zeroconf) daemon (yes / no)
-  AVAHI_DAEMON="yes"
+  AVAHI_DAEMON="no"
 
 # build with UPnP support (yes / no)
-  UPNP_SUPPORT="yes"
+  UPNP_SUPPORT="no"
 
 # build with MySQL support (yes / no)
   MYSQL_SUPPORT="no"
 
 # build xbmc with sshlib support (yes / no)
-  SSHLIB_SUPPORT="yes"
+  SSHLIB_SUPPORT="no"
 
 # build xbmc with optical drive support (yes / no)
   OPTICAL_DRIVE_SUPPORT="no"
@@ -244,7 +244,7 @@
 # OpenGL-ES implementation to use (no / bcm2835-driver)
   OPENGLES="bcm2835-driver"
 
-# Windowmanager to use (ratpoison / none)
+# Windowmanager to use (ratpoison / fluxbox / dwm / none)
   WINDOWMANAGER="none"
 
 # include uvesafb support (yes / no)
@@ -255,7 +255,7 @@
 
 # Xorg Graphic drivers to use (all / i915,i965,r200,r300,r600,nvidia,nouveau,vmware)
 # Space separated list is supported,
-# e.g. GRAPHIC_DRIVERS="i915 i965 r300 r600 radeon nvidia nouveau"
+# e.g. GRAPHIC_DRIVERS="i915 i965 r300 r600 radeonsi nvidia nouveau"
   GRAPHIC_DRIVERS=""
 
 # XBMC Player implementation to use (default / bcm2835-driver)
@@ -314,7 +314,7 @@
   FIRMWARE=""
 
 # build with lm_sensors hardware monitoring support (yes / no)
-  SENSOR_SUPPORT="yes"
+  SENSOR_SUPPORT="no"
 
 # build with swap support (yes / no)
   SWAP_SUPPORT="no"
@@ -338,7 +338,7 @@
   NANO_EDITOR="no"
 
 # cron support (yes / no)
-  CRON_SUPPORT="yes"
+  CRON_SUPPORT="no"
 
 # Perf support in development builds (yes / no)
   PERF_SUPPORT="no"

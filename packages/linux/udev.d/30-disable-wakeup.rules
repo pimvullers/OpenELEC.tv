@@ -16,26 +16,8 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="dvb-firmware"
-PKG_VERSION="0.0.38"
-PKG_REV="1"
-PKG_ARCH="any"
-PKG_LICENSE="Free-to-use"
-PKG_SITE="https://github.com/OpenELEC/dvb-firmware"
-PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain"
-PKG_PRIORITY="optional"
-PKG_SECTION="firmware"
-PKG_SHORTDESC="dvb-firmware: firmwares for various DVB drivers"
-PKG_LONGDESC="dvb-firmware: firmwares for various DVB drivers"
+ACTION!="add|change", GOTO="end"
 
-PKG_IS_ADDON="no"
-PKG_AUTORECONF="no"
+DRIVER=="ehci-pci|xhci_hcd", RUN+="/bin/sh -c 'echo disabled > /sys/$devpath/power/wakeup'"
 
-make_target() {
-  : # nothing todo
-}
-
-makeinstall_target() {
-  DESTDIR=$INSTALL ./install
-}
+LABEL="end"

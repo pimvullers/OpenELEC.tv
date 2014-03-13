@@ -17,13 +17,13 @@
 ################################################################################
 
 PKG_NAME="xbmc"
-PKG_VERSION="13-887db48"
+PKG_VERSION="13-ef4d0c8"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.xbmc.org"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain boost Python zlib bzip2 systemd pciutils lzo pcre swig:host libass enca curl libssh rtmpdump fontconfig fribidi tinyxml libjpeg-turbo libpng tiff freetype jasper libmad libsamplerate libogg libcdio libmodplug faad2 flac libmpeg2 taglib libxml2 libxslt yajl sqlite libvorbis"
+PKG_DEPENDS_TARGET="toolchain boost Python zlib bzip2 systemd pciutils lzo pcre swig:host libass enca curl rtmpdump fontconfig fribidi tinyxml libjpeg-turbo libpng tiff freetype jasper libmad libsamplerate libogg libcdio libmodplug faad2 flac libmpeg2 taglib libxml2 libxslt yajl sqlite libvorbis"
 PKG_PRIORITY="optional"
 PKG_SECTION="mediacenter"
 PKG_SHORTDESC="xbmc: XBMC Mediacenter"
@@ -248,6 +248,7 @@ else
 fi
 
 if [ "$SSHLIB_SUPPORT" = yes ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libssh"
   XBMC_SSH="--enable-ssh"
 else
   XBMC_SSH="--disable-ssh"

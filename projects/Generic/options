@@ -172,6 +172,9 @@
 # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
   ADDITIONAL_DRIVERS="RTL8192CU RTL8188EU dvbhdhomerun"
 
+# build with wireless network support (yes / no)
+  WIFI_SUPPORT="yes"
+
 # build and install bluetooth support (yes / no)
   BLUETOOTH_SUPPORT="yes"
 

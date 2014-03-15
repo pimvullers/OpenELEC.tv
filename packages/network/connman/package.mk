@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="connman"
-PKG_VERSION="1.22"
+PKG_VERSION="1.21"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -72,7 +72,6 @@ PKG_CONFIGURE_OPTS_TARGET="WPASUPPLICANT=/usr/bin/wpa_supplicant \
                            --disable-selinux \
                            --enable-loopback \
                            --enable-ethernet \
-                           --disable-gadget \
                            $CONNMAN_WIFI \
                            --disable-bluetooth \
                            --disable-ofono \

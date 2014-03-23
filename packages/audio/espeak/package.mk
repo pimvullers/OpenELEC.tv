@@ -16,26 +16,38 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="dwm"
-PKG_VERSION="6.0"
+PKG_NAME="espeak"
+PKG_VERSION="1.48.04-source"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="OSS"
-PKG_SITE="http://dwm.suckless.org/"
-PKG_URL="http://dl.suckless.org/dwm/dwm-${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libX11"
+PKG_LICENSE="GPL"
+PKG_SITE="http://espeak.sourceforge.net/"
+PKG_URL="http://downloads.sourceforge.net/$PKG_NAME/$PKG_NAME-$PKG_VERSION.zip"
+PKG_SOURCE_DIR="$PKG_NAME/$PKG_NAME-$PKG_VERSION"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
-PKG_SECTION="x11/other"
-PKG_SHORTDESC="dwm: dynamic window manager for X"
-PKG_LONGDESC="dwm is a dynamic window manager for X. It manages windows in tiled, monocle and floating layouts. All of the layouts can be applied dynamically, optimising the environment for the application in use and the task performed"
+PKG_SECTION="audio"
+PKG_SHORTDESC="Text to Speech engine for English, with support for other languages"
+PKG_LONGDESC="Text to Speech engine for English, with support for other languages"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-make_target() {
-  $MAKE LDFLAGS="$LDFLAGS -lX11" CFLAGS="$CFLAGS -std=c99" CC="$CC"
+pre_make_target() {
+  cp src/portaudio19.h src/portaudio.h
 }
 
-configure_target() {
-  :
+make_target() {
+  make -C src \
+       CXXFLAGS="$CXXFLAGS" \
+       LDFLAGS="$LDFLAGS" \
+       AUDIO=""
+}
+
+makeinstall_target() {
+  make -C src \
+       CXXFLAGS="$CXXFLAGS" \
+       LDFLAGS="$LDFLAGS" \
+       AUDIO="" \
+       DESTDIR=$INSTALL install
 }

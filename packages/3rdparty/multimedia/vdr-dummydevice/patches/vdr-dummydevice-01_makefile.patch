@@ -1,27 +1,16 @@
 diff --git a/Makefile b/Makefile
-index 48c8b2c..d370f92 100644
+index dc959f1..5cb2315 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -12,8 +12,6 @@
- 
- # Strip debug symbols?  Set eg. to /bin/true if not
- 
--STRIP = strip
--
- # The official name of this plugin.
- # This name will be used in the '-P...' option of VDR to load the plugin.
- # By default the main source file also carries this name.
-@@ -27,24 +25,15 @@ GITTAG  = $(shell git describe --always 2>/dev/null)
+@@ -15,22 +15,15 @@ VERSION = $(shell grep 'static const char \*VERSION *=' $(PLUGIN).c | awk '{ pri
  
  ### The directory environment:
  
 -# Use package data if installed...otherwise assume we're under the VDR source directory:
--PKGCFG = $(if $(VDRDIR),$(shell pkg-config --variable=$(1) $(VDRDIR)/vdr.pc),$(shell PKG_CONFIG_PATH="$$PKG_CONFIG_PATH:../../.." pkg-config --variable=$(1) vdr))
+-PKGCFG = $(if $(VDRDIR),$(shell pkg-config --variable=$(1) $(VDRDIR)/vdr.pc),$(shell pkg-config --variable=$(1) vdr || pkg-config --variable=$(1) ../../../vdr.pc))
 -LIBDIR = $(call PKGCFG,libdir)
 -LOCDIR = $(call PKGCFG,locdir)
 -PLGCFG = $(call PKGCFG,plgcfg)
--RESDIR = $(call PKGCFG,resdir)
--CFGDIR = $(call PKGCFG,configdir)
 -#
  TMPDIR ?= /tmp
  
@@ -38,7 +27,7 @@ index 48c8b2c..d370f92 100644
  
  ### Allow user defined options to overwrite defaults:
  
-@@ -65,7 +54,7 @@ LIBS = $(shell curl-config --libs)
+@@ -47,7 +40,7 @@ SOFILE = libvdr-$(PLUGIN).so
  
  ### Includes and Defines (add further entries here):
  
@@ -47,11 +36,11 @@ index 48c8b2c..d370f92 100644
  
  DEFINES += -DPLUGIN_NAME_I18N='"$(PLUGIN)"'
  
-@@ -139,6 +128,7 @@ install-i18n: $(I18Nmsgs)
+@@ -103,6 +96,7 @@ install-i18n: $(I18Nmsgs)
  
  $(SOFILE): $(OBJS)
- 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) $(LIBS) -o $@
+ 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) -o $@
 +	@cp --remove-destination $@ $(LIBDIR)/$@.$(APIVERSION)
- ifndef IPTV_DEBUG
- 	@$(STRIP) $@
- endif
+ 
+ install-lib: $(SOFILE)
+ 	install -D $^ $(DESTDIR)$(LIBDIR)/$^.$(APIVERSION)

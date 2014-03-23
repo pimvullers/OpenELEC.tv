@@ -16,19 +16,19 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="vdr-iptv"
-PKG_VERSION="2.1.2"
+PKG_NAME="vdr-dummydevice"
+PKG_VERSION="2.0.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-PKG_SITE="http://www.saunalahti.fi/~rahrenbe/vdr/iptv/"
-PKG_URL="http://www.saunalahti.fi/~rahrenbe/vdr/iptv/files/$PKG_NAME-$PKG_VERSION.tgz"
-PKG_SOURCE_DIR="iptv-${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain vdr curl"
+PKG_SITE="http://www.vdr-wiki.de/wiki/index.php/Dummydevice-plugin"
+PKG_URL="http://phivdr.dyndns.org/vdr/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tgz"
+PKG_SOURCE_DIR="dummydevice-${PKG_VERSION}"
+PKG_DEPENDS_TARGET="toolchain vdr"
 PKG_PRIORITY="optional"
 PKG_SECTION="multimedia"
-PKG_SHORTDESC="vdr-iptv: an IPTV plugin for the Video Disk Recorder (VDR)"
-PKG_LONGDESC="vdr-iptv is an IPTV plugin for the Video Disk Recorder (VDR)"
+PKG_SHORTDESC="vdr dummydevice plugin"
+PKG_LONGDESC="vdr dummydevice plugin"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
@@ -44,6 +44,10 @@ make_target() {
   make VDRDIR=$VDR_DIR \
     LIBDIR="." \
     LOCALEDIR="./locale"
+}
+
+post_make_target() {
+  $STRIP libvdr-*.so*
 }
 
 makeinstall_target() {

@@ -16,26 +16,36 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="wlan-firmware"
-PKG_VERSION="0.0.19"
+PKG_NAME="RTL8812AU"
+PKG_VERSION="b22cbdf"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="Free-to-use"
-PKG_SITE="https://github.com/OpenELEC/wlan-firmware"
+PKG_LICENSE="GPL"
+PKG_SITE="git@github.com:wuzzeb/rtl8812AU_8821AU_linux.git"
 PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET="toolchain linux"
+PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_PRIORITY="optional"
-PKG_SECTION="firmware"
-PKG_SHORTDESC="wlan-firmware: firmwares for various WLAN drivers"
-PKG_LONGDESC="wlan-firmware: firmwares for various WLAN drivers"
+PKG_SECTION="driver"
+PKG_SHORTDESC="Realtek RTL8812AU Linux 3.x driver"
+PKG_LONGDESC="Realtek RTL8812AU Linux 3.x driver"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
+pre_make_target() {
+  unset LDFLAGS
+}
+
 make_target() {
-  : # nothing todo
+  make V=1 \
+       ARCH=$TARGET_ARCH \
+       KSRC=$(kernel_path) \
+       CROSS_COMPILE=$TARGET_PREFIX \
+       CONFIG_POWER_SAVING=n
 }
 
 makeinstall_target() {
-  DESTDIR=$INSTALL ./install
+  mkdir -p $INSTALL/lib/modules/$(get_module_dir)/$PKG_NAME
+    cp *.ko $INSTALL/lib/modules/$(get_module_dir)/$PKG_NAME
 }

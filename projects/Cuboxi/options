@@ -175,13 +175,13 @@
 # Space separated list is supported,
 # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
 #  ADDITIONAL_DRIVERS="RTL8192CU RTL8192DU RTL8188EU RTL8723AU dvbhdhomerun"
-  ADDITIONAL_DRIVERS="RTL8188EU"
+  ADDITIONAL_DRIVERS="RTL8192CU RTL8192DU dvbhdhomerun"
 
 # build with wireless network support (yes / no)
   WIFI_SUPPORT="yes"
 
 # build and install bluetooth support (yes / no)
-  BLUETOOTH_SUPPORT="no"
+  BLUETOOTH_SUPPORT="yes"
 
 # build and install with XBMC webfrontend (yes / no)
   WEBSERVER="yes"
@@ -312,7 +312,7 @@
 # additional Firmware to use (dvb-firmware, misc-firmware, wlan-firmware)
 # Space separated list is supported,
 # e.g. FIRMWARE="dvb-firmware misc-firmware wlan-firmware"
-  FIRMWARE="firmware-imx misc-firmware wlan-firmware dvb-firmware"
+  FIRMWARE="misc-firmware wlan-firmware dvb-firmware"
 
 # build with lm_sensors hardware monitoring support (yes / no)
   SENSOR_SUPPORT="yes"

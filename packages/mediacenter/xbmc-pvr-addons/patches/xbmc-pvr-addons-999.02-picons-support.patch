@@ -1,4 +1,4 @@
-From 4b61ed5a76ccc672f7593bfedde8373f68f4737c Mon Sep 17 00:00:00 2001
+From e0281842588c867fdf3f26fe15f70576e1363f4e Mon Sep 17 00:00:00 2001
 From: Rainer Hochecker <fernetmenta@online.de>
 Date: Sun, 11 May 2014 12:01:23 +0200
 Subject: [PATCH] VNSI: add icon path to channels
@@ -6,13 +6,14 @@ Subject: [PATCH] VNSI: add icon path to channels
 ---
  .../addon/resources/language/English/strings.po           |  6 +++++-
  addons/pvr.vdr.vnsi/addon/resources/settings.xml          |  1 +
+ addons/pvr.vdr.vnsi/src/VNSIAdmin.cpp                     |  6 +++++-
  addons/pvr.vdr.vnsi/src/VNSIData.cpp                      | 13 +++++++++++++
  addons/pvr.vdr.vnsi/src/VNSISession.cpp                   |  6 +++---
  addons/pvr.vdr.vnsi/src/VNSISession.h                     |  6 +++---
  addons/pvr.vdr.vnsi/src/client.cpp                        | 15 +++++++++++++++
  addons/pvr.vdr.vnsi/src/client.h                          |  1 +
  addons/pvr.vdr.vnsi/src/vnsicommand.h                     |  5 ++++-
- 8 files changed, 45 insertions(+), 8 deletions(-)
+ 9 files changed, 50 insertions(+), 9 deletions(-)
 
 diff --git a/addons/pvr.vdr.vnsi/addon/resources/language/English/strings.po b/addons/pvr.vdr.vnsi/addon/resources/language/English/strings.po
 index 0dbd547..b5ca004 100644
@@ -41,6 +42,27 @@ index c75cc8c..e750ee0 100644
      <setting id="autochannelgroups" type="bool" label="30046" default="false" />
 +    <setting id="iconpath" type="folder" source="files" label="30048" default="" />
  </settings>
+diff --git a/addons/pvr.vdr.vnsi/src/VNSIAdmin.cpp b/addons/pvr.vdr.vnsi/src/VNSIAdmin.cpp
+index a8b5403..36a2dff 100644
+--- a/addons/pvr.vdr.vnsi/src/VNSIAdmin.cpp
++++ b/addons/pvr.vdr.vnsi/src/VNSIAdmin.cpp
+@@ -1427,11 +1427,15 @@ bool cVNSIAdmin::ReadChannelList(bool radio)
+     char *strChannelName  = vresp->extract_String();
+     channel.m_name = strChannelName;
+     char *strProviderName = vresp->extract_String();
+-    channel.m_provider = strProviderName;
++    channel.m_provider    = strProviderName;
+     channel.m_id          = vresp->extract_U32();
+                             vresp->extract_U32(); // first caid
+     char *strCaids        = vresp->extract_String();
+     channel.SetCaids(strCaids);
++    if (m_protocol >= 6)
++    {
++      std::string ref = vresp->extract_String();
++    }
+     channel.m_radio       = radio;
+ 
+     delete[] strChannelName;
 diff --git a/addons/pvr.vdr.vnsi/src/VNSIData.cpp b/addons/pvr.vdr.vnsi/src/VNSIData.cpp
 index cc14adf..34ed599 100644
 --- a/addons/pvr.vdr.vnsi/src/VNSIData.cpp
@@ -174,5 +196,5 @@ index f570fd3..c227188 100644
  /** Packet types */
  #define VNSI_CHANNEL_REQUEST_RESPONSE 1
 -- 
-1.9.1
+1.9.3
 

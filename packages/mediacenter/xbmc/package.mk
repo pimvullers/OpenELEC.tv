@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="xbmc"
-PKG_VERSION="13-84725b0"
+PKG_VERSION="13-741d614"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -191,7 +191,7 @@ else
 fi
 
 if [ "$AVAHI_DAEMON" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET avahi"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET avahi nss-mdns"
   XBMC_AVAHI="--enable-avahi"
 else
   XBMC_AVAHI="--disable-avahi"
@@ -519,4 +519,5 @@ post_install() {
   enable_service xbmc-waitonnetwork.service
   enable_service xbmc.service
   enable_service xbmc-lirc-suspend.service
+  enable_service display-manager.service
 }

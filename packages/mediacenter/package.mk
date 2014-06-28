@@ -44,7 +44,11 @@ if [ "$MEDIACENTER" = "xbmc" -o "$MEDIACENTER" = "xbmc-master" ]; then
 
 # various PVR clients
   if [ "$PVR_SUPPORT" = yes ]; then
-    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-pvr-addons"
+    if [ "$MEDIACENTER" = "xbmc-master" ]; then
+      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-pvr-addons-master"
+    else
+      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-pvr-addons"
+    fi
     PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET xbmc-addon-xvdr"
   fi
 

@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="xbmc-master"
-PKG_VERSION="14-f733da1"
+PKG_VERSION="14-603c7fa"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -192,7 +192,7 @@ else
 fi
 
 if [ "$AVAHI_DAEMON" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET avahi"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET avahi nss-mdns"
   XBMC_AVAHI="--enable-avahi"
 else
   XBMC_AVAHI="--disable-avahi"

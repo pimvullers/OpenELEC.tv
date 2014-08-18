@@ -17,12 +17,12 @@
 ################################################################################
 
 PKG_NAME="taglib"
-PKG_VERSION="1.9.1"
+PKG_VERSION="1.8"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL"
 PKG_SITE="http://taglib.github.com/"
-PKG_URL="https://github.com/taglib/taglib/releases/download/v$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_URL="http://taglib.github.io/releases/$PKG_NAME-$PKG_VERSION.tar.gz"
 PKG_DEPENDS_TARGET="toolchain cmake:host zlib"
 PKG_PRIORITY="optional"
 PKG_SECTION="audio"
@@ -34,7 +34,7 @@ PKG_AUTORECONF="no"
 
 # package specific configure options
 configure_target() {
-  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF -DCMAKE_INSTALL_PREFIX=/usr ..
+  cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_STATIC=1 ..
 }
 
 post_makeinstall_target() {

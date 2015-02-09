@@ -182,20 +182,12 @@ else
   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --disable-video-x11-vm --disable-video-x11-xv --without-x"
 fi
 
-if [ "$OPENGL" = "Mesa" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET Mesa glu"
+if [ ! "$OPENGL" = "no" ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OPENGL glu"
 
   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --enable-video-opengl"
 else
   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --disable-video-opengl"
-fi
-
-if [ "$PULSEAUDIO_SUPPORT" = yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET pulseaudio"
-
-  PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --enable-pulseaudio --enable-pulseaudio-shared"
-else
-  PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --disable-pulseaudio --disable-pulseaudio-shared"
 fi
 
 pre_configure_host() {

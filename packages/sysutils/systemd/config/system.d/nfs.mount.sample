@@ -17,7 +17,7 @@ After=network-online.service
 
 # usually we mount networks shares because we want they avaible *before* XBMC starts.
 # so XBMC has access to this mounts from beginning. Note: this slows down the boot!
-Before=xbmc.service
+Before=kodi.service
 
 
 [Mount]
@@ -35,7 +35,7 @@ Type=nfs
 
 
 [Install]
-# The target is used by 'servicectl enable <name_of_this_file.mount>' to link
+# The target is used by 'systemctl enable <name_of_this_file.mount>' to link
 # this service to a runlevel for starting on boot. usually 'multi-user.target'
 # is ok here.
 WantedBy=multi-user.target

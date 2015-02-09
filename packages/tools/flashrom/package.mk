@@ -23,7 +23,7 @@ PKG_ARCH="i386 x86_64"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.flashrom.org"
 PKG_URL="http://download.flashrom.org/releases/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain zlib pciutils libftdi"
+PKG_DEPENDS_TARGET="toolchain zlib pciutils libftdi1"
 PKG_PRIORITY="optional"
 PKG_SECTION="tools"
 PKG_SHORTDESC="flashrom: linux BIOS programmer"
@@ -34,3 +34,7 @@ PKG_AUTORECONF="no"
 
 PKG_MAKE_OPTS_TARGET="CC=$TARGET_CC STRIP=$STRIP PREFIX=/usr WARNERROR=no"
 PKG_MAKEINSTALL_OPTS_TARGET="CC=$TARGET_CC STRIP=$STRIP PREFIX=/usr WARNERROR=no"
+
+pre_make_target() {
+  export LDFLAGS="$LDFLAGS -ludev -lkmod"
+}

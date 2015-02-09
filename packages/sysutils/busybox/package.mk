@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="busybox"
-PKG_VERSION="1.22.1"
+PKG_VERSION="1.23.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
@@ -26,7 +26,6 @@ PKG_URL="http://busybox.net/downloads/$PKG_NAME-$PKG_VERSION.tar.bz2"
 PKG_DEPENDS_HOST=""
 PKG_DEPENDS_TARGET="toolchain busybox:host hdparm dosfstools e2fsprogs zip unzip pciutils usbutils parted"
 PKG_DEPENDS_INIT="toolchain"
-PKG_NEED_UNPACK="packages/sysutils/busybox/config/*"
 PKG_PRIORITY="required"
 PKG_SECTION="system"
 PKG_SHORTDESC="BusyBox: The Swiss Army Knife of Embedded Linux"
@@ -101,6 +100,10 @@ configure_target() {
     # set install dir
     sed -i -e "s|^CONFIG_PREFIX=.*$|CONFIG_PREFIX=\"$INSTALL\"|" .config
 
+    if [ ! "$DEVTOOLS" = yes ]; then
+      sed -i -e "s|^CONFIG_DEVMEM=.*$|# CONFIG_DEVMEM is not set|" .config
+    fi
+
     if [ ! "$CRON_SUPPORT" = "yes" ] ; then
       sed -i -e "s|^CONFIG_CROND=.*$|# CONFIG_CROND is not set|" .config
       sed -i -e "s|^CONFIG_FEATURE_CROND_D=.*$|# CONFIG_FEATURE_CROND_D is not set|" .config
@@ -119,6 +122,9 @@ configure_target() {
     CFLAGS=`echo $CFLAGS | sed -e "s|-Ofast|-Os|"`
     CFLAGS=`echo $CFLAGS | sed -e "s|-O.|-Os|"`
 
+    # busybox fails to build with GOLD support enabled with binutils-2.25
+    strip_gold
+
     LDFLAGS="$LDFLAGS -fwhole-program"
 
     make oldconfig
@@ -134,6 +140,9 @@ configure_init() {
     # optimize for size
     CFLAGS=`echo $CFLAGS | sed -e "s|-Ofast|-Os|"`
     CFLAGS=`echo $CFLAGS | sed -e "s|-O.|-Os|"`
+
+    # busybox fails to build with GOLD support enabled with binutils-2.25
+    strip_gold
 
     LDFLAGS="$LDFLAGS -fwhole-program"
 
@@ -232,6 +241,11 @@ makeinstall_init() {
   mkdir -p $INSTALL/etc
     touch $INSTALL/etc/fstab
     ln -sf /proc/self/mounts $INSTALL/etc/mtab
+
+  if [ -f $PROJECT_DIR/$PROJECT/initramfs/platform_init ]; then
+    cp $PROJECT_DIR/$PROJECT/initramfs/platform_init $INSTALL
+    chmod 755 $INSTALL/platform_init
+  fi
 
   cp $PKG_DIR/scripts/init $INSTALL
   chmod 755 $INSTALL/init

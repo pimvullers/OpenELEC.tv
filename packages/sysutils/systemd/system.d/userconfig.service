@@ -1,13 +1,12 @@
 [Unit]
 Description=Setup User config dir
 DefaultDependencies=no
-Before=local-fs.target shutdown.target
-Conflicts=shutdown.target
+After=systemd-tmpfiles-setup.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c "mkdir -p /storage/.config; false | cp -iR /usr/config/* /storage/.config/ &>/dev/null"
+ExecStart=/bin/sh -c "false | cp -iR /usr/config/* /storage/.config/ &>/dev/null"
 RemainAfterExit=yes
 
 [Install]
-WantedBy=local-fs.target
+WantedBy=sysinit.target
